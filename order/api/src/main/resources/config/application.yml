@@ -1,0 +1,60 @@
+application:
+  project: protocol
+
+server:
+  shutdown: graceful
+  port: 8080
+
+spring:
+  application.name: protocol-${common.blockchain}-order-indexer-api
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    default-property-inclusion: non_null
+  main:
+    banner-mode: log
+    web-application-type: reactive
+
+rarible:
+  ethereum:
+    converter:
+      enabled: true
+    read-only-transaction-sender:
+      enabled: true
+  core:
+    apm:
+      agent:
+        enabled: true
+        server: http://elk_apm-server:8200
+        packages: com.rarible.protocol.order.api
+      web:
+        filter:
+          enabled: true
+      annotation:
+        enabled: true
+    contract:
+      enabled: true
+
+common:
+  eip712-domain-name: Exchange
+  eip712-domain-version: 2
+  opensea-eip712-domain-name: Wyvern Exchange Contract
+  opensea-eip712-domain-version: 2.3
+  metric-root-path: "protocol.order.indexer"
+  expired-bid-worker:
+    polling-period: PT10M # 10 minutes period
+    rarible-bid-expire-period: P60D #2 months period
+  exchange-contract-addresses:
+    seaport-v1: "0x0000000000000000000000000000000000000000"
+    looksrare-V1: "0x0000000000000000000000000000000000000000"
+    x2y2-V1: "0x0000000000000000000000000000000000000000"
+  currency-contract-addresses:
+    weth: "0x0000000000000000000000000000000000000000"
+
+springdoc:
+  swagger-ui:
+    path: /v0.1/swagger/swagger-ui.html
+  api-docs:
+    path: /v0.1/swagger/v3/api-docs

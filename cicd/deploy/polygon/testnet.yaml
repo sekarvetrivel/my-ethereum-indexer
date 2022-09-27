@@ -1,0 +1,19 @@
+global:
+  network: rinkeby
+
+polygon-erc20-listener:
+  resources:
+    jvm:
+      xmx_megabytes: 768
+
+polygon-nft-listener:
+  livenessProbe:
+    initialDelaySeconds: 360
+  resources:
+    jvm:
+      xmx_megabytes: 1536
+      max_direct_memory_megabytes: 256
+
+polygon-gateway:
+  service:
+    nodePort: 30417

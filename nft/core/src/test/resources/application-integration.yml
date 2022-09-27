@@ -1,0 +1,83 @@
+logging:
+  level:
+    org.springframework.data.mongodb.core.ReactiveMongoTemplate: DEBUG
+common:
+  kafka-replica-set: ${kafka.hosts}
+  basePublicApiUrl: "http://localhost:8080/"
+  openseaLazyMintAddress: "0x495f947276749ce646f68ac8c248420045cb7b5e"
+  royaltyRegistryAddress: "0x0000000000000000000000000000000000000000"
+  cryptoPunksContractAddress: "0x0000000000000000000000000000000000000000"
+  ensDomainsContractAddress: "0x0000000000000000000000000000000000000000"
+  metricRootPath: "nft-metrics"
+  factory:
+    erc721Rarible: "0x0000000000000000000000000000000000000000"
+    erc721RaribleUser: "0x0000000000000000000000000000000000000000"
+    erc1155Rarible: "0x0000000000000000000000000000000000000000"
+    erc1155RaribleUser: "0x0000000000000000000000000000000000000000"
+  reduceProperties:
+    skipOwnerships: true
+  ipfs:
+    ipfsGateway: "https://ipfs.io"
+    ipfsPublicGateway: "https://rarible.mypinata.cloud"
+
+rarible:
+  loader:
+    broker-replica-set: ${kafka.hosts}
+    topicsPrefix: protocol.${application.environment}.${common.blockchain}.indexer.nft.loader.internal
+    enableWorkers: true
+    workers: 1
+    retry:
+      backoffDelaysMillis: [100, 200]
+      job:
+        runner:
+          period: 100000000000000 # Disabled in the tests, run the RetryTasksService manually.
+
+api:
+  opensea:
+    url: https://api.opensea.io/api/v1
+    api-key: test
+    read-timeout: 10000
+    connect-timeout: 3000
+    request-timeout: 20000
+  properties:
+    api-url: https://api.rarible.com/images
+    cache-timeout: 315360000000 # 10 years (effectively, forever)
+    request-timeout: 20000
+    media-meta-timeout: 10000
+  royalty:
+    cache-timeout: 600000 # 10 min
+
+blockchain:
+  scanner:
+    kafka:
+      broker-replica-set: ${kafka.hosts}
+      maxPollRecords: 10
+    ethereum:
+      optimisticLockRetries: 3
+      retryPolicy:
+        scan:
+          reconnectDelay: 2s
+          reconnectAttempts: 1
+        client:
+          delay: 2s
+          attempts: 3
+      job:
+        pendingLogs:
+          interval: 1s
+          initialDelay: 1s
+        reconciliation:
+          enabled: false
+          batchSize: 5
+      monitoring:
+        enabled: false
+        rootPath: "blockchain.scanner"
+        worker:
+          pollingPeriod: 1m
+
+mongock:
+  change-logs-scan-package:
+    - com.rarible.blockchain.scanner.ethereum.migration
+
+ethereumBlockReindexEnabled: false
+pendingLogsProcessingEnabled: false
+reindexBlocksJobEnabled: false

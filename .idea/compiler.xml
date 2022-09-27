@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="protocol-unlockable-api" />
+        <module name="protocol-gateway" />
+        <module name="protocol-order-indexer-migration" />
+        <module name="protocol-erc20-indexer-listener" />
+        <module name="protocol-order-indexer-listener" />
+        <module name="protocol-order-indexer-core" />
+        <module name="protocol-unlockable-core-common" />
+        <module name="protocol-nft-indexer-migration" />
+        <module name="protocol-unlockable-core" />
+        <module name="protocol-erc20-indexer-api" />
+        <module name="protocol-nft-indexer-core" />
+        <module name="protocol-unlockable-core-test" />
+        <module name="protocol-erc20-indexer-core" />
+        <module name="protocol-nft-indexer-listener" />
+        <module name="protocol-nft-indexer-api" />
+        <module name="protocol-order-indexer-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

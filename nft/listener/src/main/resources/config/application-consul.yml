@@ -1,0 +1,25 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${mongodb.hosts}
+      database: ${mongodb.database}
+
+redisUri: ${redis.uri}
+
+parityUrls: ${node.hosts}
+parityWebSocketUrls: ${node.webSocketHosts}
+
+jms-brokerUrls: ${broker.jms.hosts}
+
+rarible:
+  ethereum:
+    httpUrl: ${node.hosts}
+    websocketUrl: ${node.webSocketHosts}
+
+blockchain:
+  scanner:
+    kafka:
+      broker-replica-set: ${kafka.hosts}
+
+common:
+  kafka-replica-set: ${kafka.hosts}

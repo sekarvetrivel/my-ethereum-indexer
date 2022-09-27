@@ -1,0 +1,14 @@
+jms-brokerUrls: ${rarible.common.jms-brokerUrls}
+eventTopic: ${rarible.common.jms-eventTopic}
+ethereumBlockReindexEnabled: false
+pendingLogsProcessingEnabled: false
+reindexBlocksJobEnabled: false
+
+common:
+  kafka-replica-set: ${kafka.hosts}
+
+rarible:
+  core:
+    apm:
+      agent:
+        enabled: false

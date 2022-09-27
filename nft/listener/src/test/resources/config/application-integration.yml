@@ -1,0 +1,76 @@
+rarible:
+  core:
+    apm:
+      agent:
+        enabled: false
+  protocol:
+    listener:
+      operator-private-key: "0000000000000000000000000000000000000000"
+      erc721-contract-addresses:
+        sales:
+          - "0000000000000000000000000000000000000000"
+      erc1155-contract-addresses:
+        sales:
+          - "0000000000000000000000000000000000000000"
+      exchange-contract-addresses:
+        v1: "0000000000000000000000000000000000000000"
+        v2: "0000000000000000000000000000000000000000"
+  loader:
+    retry:
+      job:
+        runner:
+          period: 100000000000000 # Disabled in the tests.
+
+mongoUrls: ${rarible.common.mongoUrls}
+mongoDatabase: ${rarible.common.mongoDatabase}
+
+parityUrls: ${rarible.common.parityUrls}
+parityWebSocketUrls: ${rarible.common.parityWebSocketUrls}
+
+jms-brokerUrls: ${rarible.common.jms-brokerUrls}
+eventTopic: ${rarible.common.jms-eventTopic}
+
+api:
+  royalty:
+    cache-timeout: 600000 # 10 min
+
+listener:
+  action-execute:
+    enabled: false
+    daemon:
+      polling-period: 1000ms
+
+common:
+  kafka-replica-set: ${kafka.hosts}
+  basePublicApiUrl: "http://localhost:8080/"
+  openseaLazyMintAddress: "0x0000000000000000000000000000000000000000"
+  royaltyRegistryAddress: "0x0000000000000000000000000000000000000000"
+  cryptoPunksContractAddress: "0x0000000000000000000000000000000000000000"
+  metricRootPath: "nft-metrics"
+  factory:
+    erc721Rarible: "0x0000000000000000000000000000000000000000"
+    erc721RaribleUser: "0x0000000000000000000000000000000000000000"
+    erc1155Rarible: "0x0000000000000000000000000000000000000000"
+    erc1155RaribleUser: "0x0000000000000000000000000000000000000000"
+  feature-flags:
+    scanner-version: V2
+    reduce-version: V2
+    validate-creator-by-transaction-sender: true
+  reduceProperties:
+    skipOwnerships: true
+
+blockchain:
+  scanner:
+    kafka:
+      broker-replica-set: ${kafka.hosts}
+    ethereum:
+      scan:
+        block-batch-load:
+          enabled: true
+          confirmation-block-distance: 20
+        block-publish:
+          enabled: true
+
+ethereumBlockReindexEnabled: false
+pendingLogsProcessingEnabled: false
+reindexBlocksJobEnabled: false

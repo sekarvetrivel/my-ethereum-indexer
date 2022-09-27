@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AutoImportedSourceRoots">
+    <option name="directories">
+      <list>
+        <option value="$MODULE_DIR$/src/main/java" />
+        <option value="$MODULE_DIR$/src/main/kotlin" />
+        <option value="$MODULE_DIR$/src/test/java" />
+        <option value="$MODULE_DIR$/src/test/kotlin" />
+        <option value="$MODULE_DIR$/target/generated-sources/openapi/src/main/java" />
+        <option value="$MODULE_DIR$/target/generated-sources/openapi/src/main/kotlin" />
+        <option value="$MODULE_DIR$/target/generated-sources/rarible/src/main/java" />
+        <option value="$MODULE_DIR$/target/generated-sources/rarible/src/main/kotlin" />
+      </list>
+    </option>
+  </component>
+</module>

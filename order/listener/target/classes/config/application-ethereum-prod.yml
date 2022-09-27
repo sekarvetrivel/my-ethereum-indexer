@@ -1,0 +1,10 @@
+common:
+  exchange-contract-addresses:
+    looksrare-v1: "0x59728544b08ab483533076417fbbb2fd0b17ce3a"
+    x2y2-v1: "0x74312363e45dcaba76c59ec49a7aa8a65a67eed3"
+  currency-contract-addresses:
+    weth: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+listener:
+  open-sea-exchange-domain-hash-v2: "0x72982d92449bfb3d338412ce4738761aff47fb975ceb17a1bc3712ec716a5a68"
+  transfer-proxy-addresses:
+    seaport-transfer-proxy: "0x1e0049783f008a0085193e00003d00cd54003c71"

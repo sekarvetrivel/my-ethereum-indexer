@@ -1,0 +1,39 @@
+rarible:
+  core:
+    apm:
+      agent:
+        enabled: false
+      annotation:
+        enabled: false
+common:
+  blockchain: ethereum
+  eip712-domain-name: test
+  eip712domain-version: 1
+  open-sea-eip712-domain-name: test
+  open-sea-eip712-domain-version: 1
+  chain-Id: 4
+  operator-private-key: "0x0000000000000000000000000000000000000000000000000000000000000000"
+  protocol-commission: 0
+
+  exchange-contract-addresses:
+    v1: "0xda381535565b97640a6453fa7a1a7b161af78cbe"
+    v2: "0xd4a57a3bD3657D0d46B4C5bAC12b3F156B9B886b"
+    open-sea-v1: "0xdd54d660178b28f6033a953b0e55073cfa7e3744"
+    open-sea-v2: "0x7f268357a8c2552623316e2562d90e642bb538e5"
+    crypto-punks: "0x85252f525456d3fce3654e56f6eaf034075e231c"
+    zero-ex: "0000000000000000000000000000000000000000"
+  auction-contract-addresses:
+    v1: "0000000000000000000000000000000000000000"
+  transfer-proxy-addresses:
+    transfer-proxy: "0x7d47126a2600e22eab9ed6cf0e515678727779a6"
+    erc20-transfer-proxy: "0x2fce8435f0455edc702199741411dbcd1b7606ca"
+    erc721-lazy-transfer-proxy: "0x75fDbe19C2dc673384dDc14C9F453dB86F5f32E8"
+    erc1155-lazy-transfer-proxy: "0x0cF0AAb68432a3710ECbf2f1b112a11cEe31a83C"
+    crypto-punks-transfer-proxy: "0xfc2aa1b3365b8e0cac7a7d22fd7655e643792d17"
+  feature-flags:
+    pending-disabled: false
+
+ethereumBlockReindexEnabled: false
+pendingLogsProcessingEnabled: false
+reindexBlocksJobEnabled: false
+

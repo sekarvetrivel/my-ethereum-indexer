@@ -1,0 +1,126 @@
+application:
+  project: protocol
+
+server:
+  shutdown: graceful
+  port: 8080
+
+spring:
+  application.name: protocol-${common.blockchain}-nft-listener
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    default-property-inclusion: non_null
+  codec:
+    max-in-memory-size: 50MB
+  aop:
+    proxy-target-class: false
+  main:
+    banner-mode: log
+    web-application-type: reactive
+mongock:
+  change-logs-scan-package:
+    - com.rarible.ethereum.listener.log.mongock
+
+rarible:
+  core:
+    apm:
+      agent:
+        enabled: true
+        server: http://elk_apm-server:8200
+        packages: com.rarible.protocol.nft.listener
+  ethereum:
+    max-frame-size: 104857600
+    converter:
+      enabled: true
+    read-only-transaction-sender:
+      enabled: true
+  cache:
+    use-locks: true
+  loader:
+    broker-replica-set: ${kafka.hosts}
+    topicsPrefix: protocol.${application.environment}.${common.blockchain}.indexer.nft.loader.internal
+    enableRetrySchedulerJob: true
+    enableWorkers: true
+    workers: 8
+    loadTasksBatchSize: 50
+    loadTasksTopicPartitions: 32
+    retry:
+      # Retry after 24h
+      backoffDelaysMillis: [ 86400000 ]
+      job:
+        runner:
+          period: 30000 # Schedule retry tasks every 30s
+
+ethereumMaxFrameSize: 104857600
+ethereumBlockBatchSize: 50
+
+common:
+  metric-root-path: "protocol.nft.indexer"
+  cryptoPunksContractAddress: "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"
+  ensDomainsContractAddress: "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
+  feature-flags:
+    scanner-version: V2
+    reduce-version: V2
+  itemMeta:
+    maxNameLength: 1000
+    maxDescriptionLength: 10000
+  contractAddresses:
+    market:
+  ipfs:
+    ipfsGateway: "https://ipfs.io,https://nftstorage.link"
+    ipfsPublicGateway: "https://rarible.mypinata.cloud"
+
+api:
+  opensea:
+    api-key: test
+    read-timeout: 10000
+    connect-timeout: 3000
+    request-timeout: 20000
+  properties:
+    api-url: https://api.rarible.com/images
+    cache-timeout: 315360000000 # 10 years (effectively, forever)
+    request-timeout: 20000
+    media-meta-timeout: 10000
+  royalty:
+    cache-timeout: 600000 # 10 min
+
+listener:
+  itemAndOwnershipsCheckRate: PT8H
+  # TODO remove later
+  collectionStatRefresh:
+    enabled: true
+    rate: PT1M
+    timeOffset: PT1H
+    batchSize: 20
+
+blockchain:
+  scanner:
+    kafka:
+      maxPollRecords: 100
+    ethereum:
+      blockchain: ${common.blockchain}
+      service: "nft"
+      optimisticLockRetries: 5
+      scan:
+        batch-load:
+          enabled: true
+          batch-size: 50
+      task:
+        reindex:
+          enabled: true
+        check-blocks:
+          enabled: true
+          reindex-blocks: true
+      retry-policy:
+        scan:
+          reconnect-delay: 2s
+        client:
+          delay: 2s
+      monitoring:
+        enabled: true
+        rootPath: ${common.metric-root-path}
+        worker:
+          pollingPeriod: 1m

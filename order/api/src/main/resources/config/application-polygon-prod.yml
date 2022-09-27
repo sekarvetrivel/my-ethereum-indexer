@@ -1,0 +1,6 @@
+common:
+  chain-id: 137
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${mongodb.username}:${mongodb.password}@${mongodb.hosts}
